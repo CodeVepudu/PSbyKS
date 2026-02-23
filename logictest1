@@ -1,0 +1,10 @@
+
+threshold = 10.0
+
+socrates_weight = 7.0
+manhood_weight = 1.0
+
+logic_result = (socrates_weight * manhood_weight) > threshold
+
+print("Is the conclusion logically valid based on weights?")
+print(logic_result)

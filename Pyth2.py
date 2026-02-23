@@ -1,0 +1,11 @@
+# Defining our Constants (Symbols)
+socrates = 1.0
+man = 1.0
+mortal = 1.0
+
+# The Active Facit (Computation)
+# Is Socrates a mortal man? 
+is_mortal_man = (socrates * man) == mortal
+
+print("Logic Test Result:")
+print(is_mortal_man)

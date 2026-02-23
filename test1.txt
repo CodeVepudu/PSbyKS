@@ -1,0 +1,42 @@
+import json
+from datetime import datetime
+from pathlib import Path
+
+# /d:/agent_project/app.py
+
+ISSUE_TYPES = ["bug", "feature", "task", "question"]
+STORAGE = Path(__file__).with_name("issues.json")
+
+
+def prompt_issue_type():
+    prompt = f"Enter issue type ({', '.join(ISSUE_TYPES)}): "
+    while True:
+        val = input(prompt).strip().lower()
+        if not val:
+            print("Please enter a value.")
+            continue
+        if val in ISSUE_TYPES:
+            return val
+        print("Invalid type. Valid options:", ", ".join(ISSUE_TYPES))
+
+
+def save_issue(issue_type):
+    record = {"type": issue_type, "created_at": datetime.utcnow().isoformat() + "Z"}
+    if STORAGE.exists():
+        data = json.loads(STORAGE.read_text())
+        if not isinstance(data, list):
+            data = []
+    else:
+        data = []
+    data.append(record)
+    STORAGE.write_text(json.dumps(data, indent=2))
+
+
+def main():
+    issue_type = prompt_issue_type()
+    print(f"You entered: {issue_type}")
+    save_issue(issue_type)
+
+
+if __name__ == "__main__":
+    main()
